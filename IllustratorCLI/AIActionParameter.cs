@@ -10,6 +10,11 @@ namespace IllustratorCLI
 {
     class AIActionParameter
     {
+        /// <summary>
+        /// Finds the Action parameters by the Name of the Action
+        /// and writes to the file "param.txt"
+        /// </summary>
+        /// <param name="param"></param>
         public void WriteActionParameter(string param)
         {
             ActionData actionData = new ActionData();

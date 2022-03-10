@@ -17,6 +17,9 @@ namespace IllustratorCLI
         public int Value;
     }
 
+    /// <summary>
+    /// Contains all the Action parameters for the library "BEL Actions"
+    /// </summary>
     class BEL_Actions
     {
         public Dictionary<string, ActionData> actions = new Dictionary<string, ActionData>();

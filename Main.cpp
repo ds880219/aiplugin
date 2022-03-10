@@ -1,3 +1,5 @@
+///This is the beginning of the Adobe Illustrator Plugin
+///
 #include "IllustratorSDK.h"
 #include "Plugin.hpp"
 
@@ -27,6 +29,11 @@ extern "C"
 	SPBasicSuite* sSPBasic;
 }
 
+/// <summary>
+/// This function helps execute the action in Adobe Illustrator.
+/// The filled "parameters" and "eventName" gets passed to execute
+/// appropriate Action
+/// </summary>
 void ExecuteAction()
 {
 	try
@@ -44,6 +51,7 @@ void ExecuteAction()
 	}
 }
 
+///This function was meant to work with swatches. (The approach did not work as intented.)
 //void ExecuteActionSwatch()
 //{
 //	if (sAISwatchGroup && sAISwatchList)
@@ -68,6 +76,12 @@ void ExecuteAction()
 //	}
 //}
 
+/// <summary>
+/// Initializes the "AIActionParamValueRef parameters". The pointer parameters gets filled by the function "AIActionSetInteger"
+/// With appropreate "key" and "value" from the param.txt file.
+/// </summary>
+/// <param name="key"></param>
+/// <param name="value"></param>
 void InitializeAction(long key, int value)
 {
 	if (flag)
@@ -78,6 +92,11 @@ void InitializeAction(long key, int value)
 	sAIActionManager->AIActionSetInteger(parameters, key, value);
 }
 
+/// <summary>
+/// This function checks for the file named param.txt in the root directory of the installed illustrator.
+/// If the file exists then the plugin will read the file and use all the parameters and prepare "AIActionParamValueRef parameters"
+/// for an action to execute.
+/// </summary>
 void RegisterAction()
 {
 	try
@@ -139,7 +158,13 @@ void RegisterAction()
 extern Plugin* AllocatePlugin(SPPluginRef pluginRef);
 extern void FixupReload(Plugin* plugin);
 
-
+/// <summary>
+/// This function gets called first by the adobe illustrator. Entry point of the Adobe Plugin
+/// </summary>
+/// <param name="caller"></param>
+/// <param name="selector"></param>
+/// <param name="message"></param>
+/// <returns></returns>
 extern "C" ASAPI ASErr PluginMain(char* caller, char* selector, void* message)
 {
 	const void* Action;
@@ -151,7 +176,7 @@ extern "C" ASAPI ASErr PluginMain(char* caller, char* selector, void* message)
 	plugin = (Plugin*)msgData->globals;
 
 	sSPBasic = msgData->basic;
-	sSPBasic->AcquireSuite(kAIActionManagerSuite, kAIActionManagerVersion, &Action);
+	sSPBasic->AcquireSuite(kAIActionManagerSuite, kAIActionManagerVersion, &Action);            //Registers the Action Suite for the plugin
 	sAIActionManager = (AIActionManagerSuite*)Action;
 
 	/*sSPBasic->AcquireSuite(kAISwatchGroupSuite, kAISwatchGroupVersion, &Group);
@@ -212,6 +237,8 @@ extern "C" ASAPI ASErr PluginMain(char* caller, char* selector, void* message)
 				//error = plugin->Message(caller, selector, message);
 			//else
 				//error = kNoErr;
+
+			//The function to register an action called by the .Net Application 
 			RegisterAction();
 		}
 

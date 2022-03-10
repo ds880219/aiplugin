@@ -9,6 +9,12 @@ namespace IllustratorCLI
 {
     class Program
     {
+        /// <summary>
+        /// Takes the arguments passed by the user and writes
+        /// appropriate parameter value in the "param.txt" file
+        /// into the root folder of Adobe Illustrator.
+        /// </summary>
+        /// <param name="args"></param>
         static void Main(string[] args)
         {
             string Action = null;
